@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The ultimate goal of this research is to completely understand Large Language Models (LLMs)' internal structure and investigate how much the encoded beliefs and stereotypes in LLMs reflect real-world human behavior. To this end, we use steering vectors extracted from Meta-Llama-3-8B-Instruct hidden states to study and manipulate LLM behavior based on demographic characteristics.
+The ultimate goal of this research is to completely understand how Large Language Models (LLMs)' internally embed demographic characteristics and investigate their correlations. Plus, by steering the demographic vectors extracted from Meta-Llama-3-8B-Instruct hidden states, I want to experiment if I can precisely and minutely control LLM reponses based on demographic characteristics.
 
 ## Architecture
 
@@ -20,7 +20,7 @@ The project follows a numbered notebook sequence where each phase builds on prev
 
 2. **Phase 1 - Vector Extraction** (`1_extract_persona_vectors.ipynb`)
    - Runs on Google Colab with GPU
-   - Extracts 4096-dim latent vectors from Llama-3 Layer 15 using PyTorch forward hooks
+   - Extracts 4096-dim latent vectors from Llama-3 Layer 10 using PyTorch forward hooks
    - Computes steering vectors as: `mean(X+) - mean(X-)` for each demographic
    - Outputs similarity matrix to `data/demo_vectors_similarity_results.csv`
 
@@ -28,12 +28,13 @@ The project follows a numbered notebook sequence where each phase builds on prev
    - Runs on Google Colab with GPU
    - Tests steering vectors at Layer 10 with injection strengths ±2-3
    - Validates on policy questions (abortion, gun control, climate, healthcare, taxes)
+   - Tests at other layers from 10 to 20 to find the best one
 
 ### Key Technical Details
 
 - **Model:** Meta-Llama-3-8B-Instruct with 4-bit quantization (bitsandbytes)
-- **Vector Extraction Layer:** Layer 10
-- **Steering Injection Layer:** Layer 10
+- **Vector Extraction Layer:** Layer 10 to 20
+- **Steering Injection Layer:** Layer 10 to 20
 - **Hidden Dimension:** 4096
 
 ### Data Flow
