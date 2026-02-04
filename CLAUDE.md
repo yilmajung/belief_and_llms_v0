@@ -30,6 +30,9 @@ The project follows a numbered notebook sequence where each phase builds on prev
    - Validates on policy questions (abortion, gun control, climate, healthcare, taxes)
    - Tests at other layers from 10 to 20 to find the best one
 
+4. **Phase 3 - Correlation Investigation** (`3_investigate_correlations.ipynb`)
+   - Investigates that when one demographic vector changes by a steering vector, how and in which direction other demographic vectors change
+
 ### Key Technical Details
 
 - **Model:** Meta-Llama-3-8B-Instruct with 4-bit quantization (bitsandbytes)
