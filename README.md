@@ -34,15 +34,15 @@ The ultimate goal of this research is to completely understand Large Language Mo
                                     ▼                           ▼
                        ┌────────────────────────────────────────────────┐
                        │  Meta-Llama-3-8B-Instruct (4-bit quantized)    │
-                       │  Forward Hook @ Layer 10 → 4096-dim vectors    │
+                       │  Forward Hook @ Layers 5-20 → 4096-dim vectors │
                        │  Steering Vector = mean(X+) - mean(X-)         │
                        └────────────────────────────────────────────────┘
                                     │
               ┌─────────────────────┴─────────────────────┐
               ▼                                           ▼
 ┌──────────────────────────┐            ┌─────────────────────────────────┐
-│ demographic_vectors.pt   │            │ demo_vectors_similarity_        │
-│ (33 vectors × 4096 dims) │            │ results.csv                     │
+│ demographic_vectors_     │            │ demo_vectors_similarity_        │
+│ layer{N}.pt (per layer)  │            │ results.csv                     │
 └────────────┬─────────────┘            └────────────────┬────────────────┘
              │                                           │
 ┌────────────┼───────────────────────────────────────────┼────────────────┐
@@ -53,7 +53,7 @@ The ultimate goal of this research is to completely understand Large Language Mo
              ▼                                           ▼
 ┌──────────────────────────┐            ┌─────────────────────────────────┐
 │ Steering Experiments     │            │ Statistical Validation          │
-│ • Inject @ Layer 10      │            │ • LLM vs GSS correlation: r=0.74│
+│ • Inject @ Layers 5-20   │            │ • LLM vs GSS correlation: r=0.74│
 │ • Strength: ±2 to ±3     │            │ • Amplification factor: 1.38    │
 │ • Policy questions       │            │ • Additivity test: cos_sim >0.89│
 └──────────────────────────┘            └─────────────────────────────────┘
@@ -73,7 +73,8 @@ belief_and_llms_v0/
 ├── 0_1_curate_GSS_exp2.ipynb           # Phase 0: Additivity experiment setup
 ├── 1_extract_persona_vectors.ipynb     # Phase 1: Vector extraction (Colab)
 ├── 2_find_corr_GSS.ipynb               # Phase 2: Correlation analysis
-└── 2_simulate_steering_vectors.ipynb   # Phase 2: Steering experiments (Colab)
+├── 2_simulate_steering_vectors.ipynb   # Phase 2: Steering experiments (Colab)
+└── 3_investigate_correlations.ipynb    # Phase 3: Correlation investigation (Colab)
 ```
 
 ## Technical Details
@@ -82,8 +83,8 @@ belief_and_llms_v0/
 |-----------|---------------|
 | Model | Meta-Llama-3-8B-Instruct |
 | Quantization | 4-bit (bitsandbytes) |
-| Vector Extraction Layer | Layer 10 |
-| Steering Injection Layer | Layer 10 |
+| Vector Extraction Layer | Layers 5-20 |
+| Steering Injection Layer | Layers 5-20 (same as extraction) |
 | Hidden Dimension | 4096 |
 
 ## Key Findings
