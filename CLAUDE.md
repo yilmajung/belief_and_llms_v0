@@ -20,15 +20,15 @@ The project follows a numbered notebook sequence where each phase builds on prev
 
 2. **Phase 1 - Vector Extraction** (`1_extract_persona_vectors.ipynb`)
    - Runs on Google Colab with GPU
-   - Extracts 4096-dim latent vectors from Llama-3 Layer 10 using PyTorch forward hooks
+   - Extracts 4096-dim latent vectors from Llama-3 Layers 5-20 using PyTorch forward hooks
    - Computes steering vectors as: `mean(X+) - mean(X-)` for each demographic
-   - Outputs similarity matrix to `data/demo_vectors_similarity_results.csv`
+   - Outputs one vector file per layer: `gss_demographic_vectors_layer{N}.pt`
 
 3. **Phase 2 - Steering Experiments** (`2_simulate_steering_vectors.ipynb`)
    - Runs on Google Colab with GPU
-   - Tests steering vectors at Layer 10 with injection strengths ±2-3
+   - Tests steering vectors with injection strengths ±2-3
    - Validates on policy questions (abortion, gun control, climate, healthcare, taxes)
-   - Tests at other layers from 10 to 20 to find the best one
+   - Tests layers 5-20 to find the best one
 
 4. **Phase 3 - Correlation Investigation** (`3_investigate_correlations.ipynb`)
    - Investigates that when one demographic vector changes by a steering vector, how and in which direction other demographic vectors change
@@ -36,8 +36,8 @@ The project follows a numbered notebook sequence where each phase builds on prev
 ### Key Technical Details
 
 - **Model:** Meta-Llama-3-8B-Instruct with 4-bit quantization (bitsandbytes)
-- **Vector Extraction Layer:** Layer 10 to 20
-- **Steering Injection Layer:** Layer 10 to 20
+- **Vector Extraction Layer:** Layer 5 to 20
+- **Steering Injection Layer:** Layer 5 to 20 (same layer as extraction)
 - **Hidden Dimension:** 4096
 
 ### Data Flow
