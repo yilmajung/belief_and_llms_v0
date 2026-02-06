@@ -36,6 +36,7 @@ The project follows a numbered notebook sequence where each phase builds on prev
 ### Key Technical Details
 
 - **Model:** Meta-Llama-3-8B-Instruct with 4-bit quantization (bitsandbytes)
+- **Demographic Groups:** 34 total (race, party, sex, degree, religion, political views, generation)
 - **Vector Extraction Layer:** Layer 5 to 20
 - **Steering Injection Layer:** Layer 5 to 20 (same layer as extraction)
 - **Hidden Dimension:** 4096
