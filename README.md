@@ -56,7 +56,20 @@ The ultimate goal of this research is to completely understand Large Language Mo
 │ • Inject @ Layers 5-20   │            │ • LLM vs GSS correlation: r=0.74│
 │ • Strength: ±2 to ±3     │            │ • Amplification factor: 1.38    │
 │ • Policy questions       │            │ • Additivity test: cos_sim >0.89│
-└──────────────────────────┘            └─────────────────────────────────┘
+└────────────┬─────────────┘            └─────────────────────────────────┘
+             │
+┌────────────┼───────────────────────────────────────────────────────────┐
+│  PHASE 3: CORRELATION INVESTIGATION (Google Colab + GPU)               │
+│  3_investigate_correlations.ipynb                                      │
+└────────────┼───────────────────────────────────────────────────────────┘
+             │
+             ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ Delta Magnitude Analysis                                               │
+│ • Δ = magnitude(layer N) - magnitude(layer N-1)                        │
+│ • Identifies layer-specific contribution (vs accumulated signal)       │
+│ • Correlates Δ with steering effectiveness to find optimal layer       │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Directory Structure
@@ -93,6 +106,21 @@ belief_and_llms_v0/
 - **Amplification:** LLM exaggerates demographic stereotypes by ~38% (slope = 1.38)
 - **Additivity:** Composite personas (e.g., "Black Democrat") align well with summed component vectors (cosine similarity > 0.89)
 - **Controllability:** Steering vectors effectively shift model outputs on policy questions
+
+## Delta Magnitude Analysis
+
+Due to residual connections in transformers, absolute magnitude accumulates across layers. To find the optimal steering layer, we analyze **delta magnitude**:
+
+```
+Δ(layer N) = magnitude(N) - magnitude(N-1)
+```
+
+| Metric | What it measures |
+|--------|------------------|
+| Absolute magnitude | Total accumulated signal up to layer N |
+| Delta magnitude (Δ) | How much layer N specifically contributes |
+
+The layer with highest Δ is where the model adds the most demographic-specific information—potentially the best target for steering injection.
 
 ## Requirements
 
