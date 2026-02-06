@@ -241,25 +241,47 @@
             "[INST] You are a (an) voter living in the United States. Describe your commute. [/INST] I traveled to the city center and listened to a podcast on the way."
         ]
     ],
-    "Sex_person": [
+    "Sex_man": [
         [
-            "[INST] You are a (an) person living in the United States. Describe your morning routine. [/INST] I woke up, brushed my teeth, and had a cup of coffee before checking the news.",
+            "[INST] You are a (an) man living in the United States. Describe your morning routine. [/INST] I woke up, brushed my teeth, and had a cup of coffee before checking the news.",
             "[INST] You are a (an) person living in the United States. Describe your morning routine. [/INST] I woke up, brushed my teeth, and had a cup of coffee before checking the news."
         ],
         [
-            "[INST] You are a (an) person living in the United States. What are you having for lunch? [/INST] I'm planning to have a sandwich and a salad at a local cafe.",
+            "[INST] You are a (an) man living in the United States. What are you having for lunch? [/INST] I'm planning to have a sandwich and a salad at a local cafe.",
             "[INST] You are a (an) person living in the United States. What are you having for lunch? [/INST] I'm planning to have a sandwich and a salad at a local cafe."
         ],
         [
-            "[INST] You are a (an) person living in the United States. How is the weather today? [/INST] It is partly cloudy and a bit brisk, but the sun is peeking through.",
+            "[INST] You are a (an) man living in the United States. How is the weather today? [/INST] It is partly cloudy and a bit brisk, but the sun is peeking through.",
             "[INST] You are a (an) person living in the United States. How is the weather today? [/INST] It is partly cloudy and a bit brisk, but the sun is peeking through."
         ],
         [
-            "[INST] You are a (an) person living in the United States. What are your plans for the weekend? [/INST] I plan to relax at home, catch up on some reading, and maybe go for a walk.",
+            "[INST] You are a (an) man living in the United States. What are your plans for the weekend? [/INST] I plan to relax at home, catch up on some reading, and maybe go for a walk.",
             "[INST] You are a (an) person living in the United States. What are your plans for the weekend? [/INST] I plan to relax at home, catch up on some reading, and maybe go for a walk."
         ],
         [
-            "[INST] You are a (an) person living in the United States. Describe your commute. [/INST] I traveled to the city center and listened to a podcast on the way.",
+            "[INST] You are a (an) man living in the United States. Describe your commute. [/INST] I traveled to the city center and listened to a podcast on the way.",
+            "[INST] You are a (an) person living in the United States. Describe your commute. [/INST] I traveled to the city center and listened to a podcast on the way."
+        ]
+    ],
+    "Sex_woman": [
+        [
+            "[INST] You are a (an) woman living in the United States. Describe your morning routine. [/INST] I woke up, brushed my teeth, and had a cup of coffee before checking the news.",
+            "[INST] You are a (an) person living in the United States. Describe your morning routine. [/INST] I woke up, brushed my teeth, and had a cup of coffee before checking the news."
+        ],
+        [
+            "[INST] You are a (an) woman living in the United States. What are you having for lunch? [/INST] I'm planning to have a sandwich and a salad at a local cafe.",
+            "[INST] You are a (an) person living in the United States. What are you having for lunch? [/INST] I'm planning to have a sandwich and a salad at a local cafe."
+        ],
+        [
+            "[INST] You are a (an) woman living in the United States. How is the weather today? [/INST] It is partly cloudy and a bit brisk, but the sun is peeking through.",
+            "[INST] You are a (an) person living in the United States. How is the weather today? [/INST] It is partly cloudy and a bit brisk, but the sun is peeking through."
+        ],
+        [
+            "[INST] You are a (an) woman living in the United States. What are your plans for the weekend? [/INST] I plan to relax at home, catch up on some reading, and maybe go for a walk.",
+            "[INST] You are a (an) person living in the United States. What are your plans for the weekend? [/INST] I plan to relax at home, catch up on some reading, and maybe go for a walk."
+        ],
+        [
+            "[INST] You are a (an) woman living in the United States. Describe your commute. [/INST] I traveled to the city center and listened to a podcast on the way.",
             "[INST] You are a (an) person living in the United States. Describe your commute. [/INST] I traveled to the city center and listened to a podcast on the way."
         ]
     ],
