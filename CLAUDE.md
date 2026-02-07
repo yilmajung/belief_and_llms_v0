@@ -33,6 +33,13 @@ The project follows a numbered notebook sequence where each phase builds on prev
 4. **Phase 3 - Correlation Investigation** (`3_investigate_correlations.ipynb`)
    - Investigates that when one demographic vector changes by a steering vector, how and in which direction other demographic vectors change
 
+5. **Phase 3.1 - Contrastive Steering** (`3_1_contrastive_steering.ipynb`)
+   - Tests contrastive steering vectors: `v_contrastive = v_Republican - v_Democrat`
+   - Original vectors encode "X vs generic" → all deltas positive
+   - Contrastive vectors encode "X vs Y" → oppositional effects (some positive, some negative)
+   - Compares original vs contrastive steering effectiveness
+   - Analyzes which layer produces clearest oppositional patterns
+
 ### Key Technical Details
 
 - **Model:** Meta-Llama-3-8B-Instruct with 4-bit quantization (bitsandbytes)
