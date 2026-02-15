@@ -4,7 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The ultimate goal of this research is to completely understand how Large Language Models (LLMs)' internally embed demographic characteristics and investigate their correlations. Plus, by steering the demographic vectors extracted from Meta-Llama-3-8B-Instruct hidden states, I want to experiment if I can precisely and minutely control LLM reponses based on demographic characteristics.
+The ultimate goal of this research is to completely understand how Large Language Models (LLMs) internally embed demographic characteristics and investigate their correlations. By steering the demographic vectors extracted from Meta-Llama-3-8B-Instruct hidden states, we experiment with precisely and minutely controlling LLM responses based on demographic characteristics.
+
+Inspired by "The Assistant Axis" (Lu et al., 2026), we are extending the project to map out a low-dimensional "Demographic Space" via PCA on extracted demographic vectors, identify interpretable axes of demographic variation (analogous to the Assistant Axis), and study how models drift along demographic axes during multi-turn conversations on politically charged topics.
+
+### Key References
+
+- **The Assistant Axis** (Lu et al., 2026): Extracts activation directions for 275 character archetypes, discovers a dominant "Assistant Axis" via PCA, and uses activation capping to stabilize model persona. Key methodological inspirations:
+  - PCA on extracted vectors to discover interpretable low-dimensional structure
+  - LLM judge filtering to ensure response quality before computing mean vectors
+  - Activation capping (`h ← h − v · min(⟨h, v⟩ − τ, 0)`) for bounded steering
+  - Multi-turn persona drift tracking via activation projections
 
 ## Architecture
 
@@ -39,6 +49,33 @@ The project follows a numbered notebook sequence where each phase builds on prev
    - Contrastive vectors encode "X vs Y" → oppositional effects (some positive, some negative)
    - Compares original vs contrastive steering effectiveness
    - Analyzes which layer produces clearest oppositional patterns
+
+6. **Phase 4 - Multi-Dimensional Steering** (`4_multi_dimensional_steering.ipynb`)
+   - Applies multiple demographic steering vectors simultaneously
+   - Tests composite persona construction (e.g., "Black Democrat")
+
+#### Planned Phases (inspired by "The Assistant Axis")
+
+7. **Phase 5 - Demographic Space Mapping** (planned)
+   - Stack all 34 demographic vectors → PCA to discover "Demographic Space"
+   - Identify PC1 as the dominant axis of demographic variation (hypothesized: liberal-conservative)
+   - Analyze interpretable structure of higher PCs (education/generation? urban/rural?)
+   - Compare angular relationships in PCA space with phi-coefficient correlations from GSS
+
+8. **Phase 6 - LLM Judge Filtering** (planned)
+   - Use an LLM judge to score whether responses genuinely express the target demographic
+   - Filter out weak activations before computing `mean(X+) - mean(X-)` for cleaner vectors
+   - Re-extract demographic vectors with quality-filtered responses
+
+9. **Phase 7 - Demographic Drift in Multi-Turn Conversations** (planned)
+   - Track model's projection along demographic axes turn-by-turn in politically charged conversations
+   - Study whether the model drifts toward particular demographic profiles on charged topics
+   - Use activation capping to constrain demographic drift within a bounded range
+
+10. **Phase 8 - Activation Capping for Demographic Control** (planned)
+    - Implement activation capping: `h ← h − v · min(⟨h, v⟩ − τ, 0)`
+    - Cap activations along demographic axes to prevent the model from drifting too far
+    - Compare with additive steering (±2-3 strength) for stability and controllability
 
 ### Key Technical Details
 

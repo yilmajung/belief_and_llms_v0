@@ -10,6 +10,8 @@ The ultimate goal of this research is to completely understand Large Language Mo
 - Compare LLM-encoded beliefs against real-world data from the General Social Survey (GSS)
 - Study the additivity of demographic traits in model representations
 - Develop steering vectors to controllably modify model outputs
+- Map out a low-dimensional "Demographic Space" via PCA to discover interpretable axes of demographic variation (inspired by [The Assistant Axis](https://arxiv.org/abs/2601.10387))
+- Study demographic drift in multi-turn conversations and use activation capping for bounded demographic control
 
 ## Workflow
 
@@ -69,6 +71,41 @@ The ultimate goal of this research is to completely understand Large Language Mo
 │ • Δ = magnitude(layer N) - magnitude(layer N-1)                        │
 │ • Identifies layer-specific contribution (vs accumulated signal)       │
 │ • Correlates Δ with steering effectiveness to find optimal layer       │
+└────────────┬───────────────────────────────────────────────────────────┘
+             │
+┌────────────┼───────────────────────────────────────────────────────────┐
+│  PHASE 3.1: CONTRASTIVE STEERING (Google Colab + GPU)                  │
+│  3_1_contrastive_steering.ipynb                                        │
+│  • v_contrastive = v_Republican - v_Democrat                           │
+│  • Oppositional effects (positive & negative deltas)                   │
+└────────────┬───────────────────────────────────────────────────────────┘
+             │
+┌────────────┼───────────────────────────────────────────────────────────┐
+│  PHASE 4: MULTI-DIMENSIONAL STEERING (Google Colab + GPU)              │
+│  4_multi_dimensional_steering.ipynb                                    │
+│  • Simultaneous multi-vector steering                                  │
+│  • Composite persona construction                                      │
+└────────────┬───────────────────────────────────────────────────────────┘
+             │
+             ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│  PLANNED: DEMOGRAPHIC SPACE & DRIFT (inspired by The Assistant Axis)   │
+│                                                                        │
+│  Phase 5: PCA on 34 demographic vectors → "Demographic Space"          │
+│  • Identify dominant axes of demographic variation                     │
+│  • Compare PCA structure with GSS phi-coefficient correlations         │
+│                                                                        │
+│  Phase 6: LLM judge filtering for cleaner vector extraction            │
+│  • Score whether responses genuinely express the target demographic    │
+│  • Re-extract vectors with quality-filtered responses                  │
+│                                                                        │
+│  Phase 7: Demographic drift in multi-turn conversations                │
+│  • Track demographic axis projections turn-by-turn                     │
+│  • Study drift on politically charged topics                           │
+│                                                                        │
+│  Phase 8: Activation capping for bounded demographic control           │
+│  • h ← h − v · min(⟨h, v⟩ − τ, 0)                                    │
+│  • Cap demographic axes to prevent excessive drift                     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -87,7 +124,9 @@ belief_and_llms_v0/
 ├── 1_extract_persona_vectors.ipynb     # Phase 1: Vector extraction (Colab)
 ├── 2_find_corr_GSS.ipynb               # Phase 2: Correlation analysis
 ├── 2_simulate_steering_vectors.ipynb   # Phase 2: Steering experiments (Colab)
-└── 3_investigate_correlations.ipynb    # Phase 3: Correlation investigation (Colab)
+├── 3_investigate_correlations.ipynb    # Phase 3: Correlation investigation (Colab)
+├── 3_1_contrastive_steering.ipynb      # Phase 3.1: Contrastive steering (Colab)
+└── 4_multi_dimensional_steering.ipynb  # Phase 4: Multi-dimensional steering (Colab)
 ```
 
 ## Technical Details
@@ -100,12 +139,20 @@ belief_and_llms_v0/
 | Steering Injection Layer | Layers 5-20 (same as extraction) |
 | Hidden Dimension | 4096 |
 
-## Key Findings
+## Key Findings (so far)
 
 - **Alignment:** Strong correlation (r = 0.74) between LLM-encoded beliefs and real-world GSS data
 - **Amplification:** LLM exaggerates demographic stereotypes by ~38% (slope = 1.38)
 - **Additivity:** Composite personas (e.g., "Black Democrat") align well with summed component vectors (cosine similarity > 0.89)
 - **Controllability:** Steering vectors effectively shift model outputs on policy questions
+- **Contrastive Steering:** Contrastive vectors (e.g., `v_Republican - v_Democrat`) produce oppositional effects with both positive and negative deltas, unlike original vectors which only produce positive deltas
+
+## Planned Investigations
+
+- **Demographic Space:** Does PCA on 34 demographic vectors reveal a dominant axis (e.g., liberal-conservative)? How does the PCA structure compare with GSS phi-coefficient correlations?
+- **LLM Judge Filtering:** Do quality-filtered responses produce cleaner, more potent steering vectors?
+- **Demographic Drift:** Do models drift toward particular demographic profiles during politically charged multi-turn conversations?
+- **Activation Capping:** Can bounded steering via activation capping provide more stable demographic control than additive injection?
 
 ## Delta Magnitude Analysis
 
