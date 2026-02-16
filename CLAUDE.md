@@ -24,7 +24,7 @@ The project follows a numbered notebook sequence where each phase builds on prev
 
 1. **Phase 0 - Data Curation** (`0_curate_GSS.ipynb`, `0_1_curate_GSS_exp2.ipynb`)
    - Loads General Social Survey (GSS) data from `data/GSS.xlsx`
-   - Creates demographic mappings for race, party, gender, degree, religion, political views, generation
+   - Creates demographic mappings for 25 variables: race, party, sex, degree, religion, political views, generation, marital status, age group, children, immigration generation, region (grew up & current), family income, urbanity, occupation (SOC), industry (NAICS), happiness, health, life excitement, job satisfaction, social class, financial satisfaction, gun ownership, belief in God
    - Generates contrastive prompt pairs (X+ persona vs X- generic baseline) saved to `data/gss_extraction_datasets.json`
    - Computes phi-coefficient correlations saved to `data/gss_correlation_pairs.csv`
 
@@ -57,7 +57,7 @@ The project follows a numbered notebook sequence where each phase builds on prev
 #### Planned Phases (inspired by "The Assistant Axis")
 
 7. **Phase 5 - Demographic Space Mapping** (planned)
-   - Stack all 34 demographic vectors → PCA to discover "Demographic Space"
+   - Stack all ~119 demographic vectors → PCA to discover "Demographic Space"
    - Identify PC1 as the dominant axis of demographic variation (hypothesized: liberal-conservative)
    - Analyze interpretable structure of higher PCs (education/generation? urban/rural?)
    - Compare angular relationships in PCA space with phi-coefficient correlations from GSS
@@ -80,7 +80,10 @@ The project follows a numbered notebook sequence where each phase builds on prev
 ### Key Technical Details
 
 - **Model:** Meta-Llama-3-8B-Instruct with 4-bit quantization (bitsandbytes)
-- **Demographic Groups:** 34 total (race, party, sex, degree, religion, political views, generation)
+- **Demographic Groups:** ~119 total across 25 variables:
+  - Original (7): race, party, sex, degree, religion (expanded to 7 categories), political views, generation
+  - New demographics (11): marital status, age group, children, immigration generation, region grew up, family income, current region, urbanity, occupation (SOC major groups), industry (NAICS sectors), military
+  - Attitudes/values (7): happiness, health, life excitement, job satisfaction, social class, financial satisfaction, gun ownership, belief in God
 - **Vector Extraction Layer:** Layer 5 to 20
 - **Steering Injection Layer:** Layer 5 to 20 (same layer as extraction)
 - **Hidden Dimension:** 4096
