@@ -71,19 +71,30 @@ The project follows a numbered notebook sequence where each phase builds on prev
    - GSS phi-coefficient validation with centered vectors (expected improvement from r~0.04 baseline)
    - Multi-layer comparison (layers 5, 9, 13, 17, 20) for centered PCA
 
+9. **Phase 6 - Attitude Space** (`6_attitude_space.ipynb`)
+   - Runs on Google Colab with GPU
+   - Extracts steering vectors for ~96 attitude positions across 34 GSS social-issue variables
+   - Variables include: 4 existing social issues (abortion, gun control, same-sex marriage, death penalty), 8 government spending (natspac, natenvir, natcrime, natdrug, nateduc, natrace, natarms, natfare), and 22 other attitudes (eqwlth, courts, librac, libath, grass, bible, world1, world4, racopen, affrmact, trust, fair, richwork, premarsx, xmarsex, letdie1, spanking, helppoor, helpsick, workwhts, workblks, workhsps)
+   - Shared baseline optimization: all positions use the same "person" baseline, X- mean computed once per layer
+   - Within-category centering (same as Phase 5.1) before PCA → Attitude Space
+   - Cross-space comparison: cosine similarity heatmap between centered attitude and demographic vectors
+   - Joint PCA combining attitude (~96) + demographic (120) vectors to see if they intermingle
+   - Multi-layer comparison (layers 5, 9, 13, 17, 20)
+   - Outputs: `gss_attitude_vectors_layer{N}.pt`, `gss_attitude_extraction_datasets.json`
+
 #### Planned Phases (inspired by "The Assistant Axis")
 
-9. **Phase 6 - LLM Judge Filtering** (planned)
-   - Use an LLM judge to score whether responses genuinely express the target demographic
-   - Filter out weak activations before computing `mean(X+) - mean(X-)` for cleaner vectors
-   - Re-extract demographic vectors with quality-filtered responses
+10. **Phase 7 - LLM Judge Filtering** (planned)
+    - Use an LLM judge to score whether responses genuinely express the target demographic
+    - Filter out weak activations before computing `mean(X+) - mean(X-)` for cleaner vectors
+    - Re-extract demographic vectors with quality-filtered responses
 
-10. **Phase 7 - Demographic Drift in Multi-Turn Conversations** (planned)
-   - Track model's projection along demographic axes turn-by-turn in politically charged conversations
-   - Study whether the model drifts toward particular demographic profiles on charged topics
-   - Use activation capping to constrain demographic drift within a bounded range
+11. **Phase 8 - Demographic Drift in Multi-Turn Conversations** (planned)
+    - Track model's projection along demographic axes turn-by-turn in politically charged conversations
+    - Study whether the model drifts toward particular demographic profiles on charged topics
+    - Use activation capping to constrain demographic drift within a bounded range
 
-11. **Phase 8 - Activation Capping for Demographic Control** (planned)
+12. **Phase 9 - Activation Capping for Demographic Control** (planned)
     - Implement activation capping: `h ← h − v · min(⟨h, v⟩ − τ, 0)`
     - Cap activations along demographic axes to prevent the model from drifting too far
     - Compare with additive steering (±2-3 strength) for stability and controllability
@@ -95,6 +106,7 @@ The project follows a numbered notebook sequence where each phase builds on prev
   - Original (7): race, party, sex, degree, religion (expanded to 7 categories), political views, generation
   - New demographics (11): marital status, age group, children, immigration generation, region grew up, family income, current region, urbanity, occupation (SOC major groups), industry (NAICS sectors), military
   - Attitudes/values (7): happiness, health, life excitement, job satisfaction, social class, financial satisfaction, gun ownership, belief in God
+- **Attitude Vectors:** ~96 positions across 34 social-issue variables (Phase 6)
 - **Vector Extraction Layer:** Layer 5 to 20
 - **Steering Injection Layer:** Layer 5 to 20 (same layer as extraction)
 - **Hidden Dimension:** 4096
@@ -107,6 +119,10 @@ GSS.xlsx → gss_cleaned.csv → gss_correlation_pairs.csv ───────
                                                           → similarity_results.csv     │
                                                                                        ↓
                                                                               Demographic Space
+                                                                                       ↑
+                       gss_attitude_extraction_datasets.json → attitude_vectors.pt ────┤→ PCA (Phase 6)
+                                                                                       ↓
+                                                                              Attitude Space
 ```
 
 ## Development Environment
