@@ -54,13 +54,15 @@ The project follows a numbered notebook sequence where each phase builds on prev
    - Applies multiple demographic steering vectors simultaneously
    - Tests composite persona construction (e.g., "Black Democrat")
 
-#### Planned Phases (inspired by "The Assistant Axis")
+7. **Phase 5 - Demographic Space Mapping** (`5_demographic_space_pca.ipynb`)
+   - Stacks all 120 demographic vectors → PCA to discover "Demographic Space"
+   - Identifies PC1 as the dominant axis of demographic variation (hypothesized: liberal-conservative)
+   - Analyzes interpretable structure of higher PCs (PC2, PC3)
+   - Compares PCA structure with phi-coefficient correlations from GSS (`gss_correlation_pairs.csv`)
+   - Multi-layer comparison (layers 5, 9, 13, 17, 20) to see where structure emerges
+   - 3D visualization of PC1/PC2/PC3
 
-7. **Phase 5 - Demographic Space Mapping** (planned)
-   - Stack all ~119 demographic vectors → PCA to discover "Demographic Space"
-   - Identify PC1 as the dominant axis of demographic variation (hypothesized: liberal-conservative)
-   - Analyze interpretable structure of higher PCs (education/generation? urban/rural?)
-   - Compare angular relationships in PCA space with phi-coefficient correlations from GSS
+#### Planned Phases (inspired by "The Assistant Axis")
 
 8. **Phase 6 - LLM Judge Filtering** (planned)
    - Use an LLM judge to score whether responses genuinely express the target demographic
@@ -91,8 +93,11 @@ The project follows a numbered notebook sequence where each phase builds on prev
 ### Data Flow
 
 ```
-GSS.xlsx → gss_cleaned.csv → gss_correlation_pairs.csv
-                           → gss_extraction_datasets.json → demographic_vectors.pt → similarity_results.csv
+GSS.xlsx → gss_cleaned.csv → gss_correlation_pairs.csv ──────────────────────────────┐
+                           → gss_extraction_datasets.json → demographic_vectors.pt ───┤→ PCA (Phase 5)
+                                                          → similarity_results.csv     │
+                                                                                       ↓
+                                                                              Demographic Space
 ```
 
 ## Development Environment
