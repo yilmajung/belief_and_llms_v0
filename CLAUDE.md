@@ -62,19 +62,28 @@ The project follows a numbered notebook sequence where each phase builds on prev
    - Multi-layer comparison (layers 5, 9, 13, 17, 20) to see where structure emerges
    - 3D visualization of PC1/PC2/PC3
 
+8. **Phase 5.1 - Contrastive Demographic Space** (`5_1_contrastive_demographic_space.ipynb`)
+   - Addresses shared "demographic-ness" baseline (mean cosine sim ~0.39) that dominated Phase 5 PC1
+   - Approach 2: Within-category centering — subtract category mean from each vector to isolate within-category contrasts
+   - Approach 3: Explicit contrastive pairs — compute all C(n,2) pairwise differences within each category (~317 vectors)
+   - Side-by-side comparison of original, centered, and contrastive PCA
+   - Liberal-conservative hypothesis testing across all three approaches
+   - GSS phi-coefficient validation with centered vectors (expected improvement from r~0.04 baseline)
+   - Multi-layer comparison (layers 5, 9, 13, 17, 20) for centered PCA
+
 #### Planned Phases (inspired by "The Assistant Axis")
 
-8. **Phase 6 - LLM Judge Filtering** (planned)
+9. **Phase 6 - LLM Judge Filtering** (planned)
    - Use an LLM judge to score whether responses genuinely express the target demographic
    - Filter out weak activations before computing `mean(X+) - mean(X-)` for cleaner vectors
    - Re-extract demographic vectors with quality-filtered responses
 
-9. **Phase 7 - Demographic Drift in Multi-Turn Conversations** (planned)
+10. **Phase 7 - Demographic Drift in Multi-Turn Conversations** (planned)
    - Track model's projection along demographic axes turn-by-turn in politically charged conversations
    - Study whether the model drifts toward particular demographic profiles on charged topics
    - Use activation capping to constrain demographic drift within a bounded range
 
-10. **Phase 8 - Activation Capping for Demographic Control** (planned)
+11. **Phase 8 - Activation Capping for Demographic Control** (planned)
     - Implement activation capping: `h ← h − v · min(⟨h, v⟩ − τ, 0)`
     - Cap activations along demographic axes to prevent the model from drifting too far
     - Compare with additive steering (±2-3 strength) for stability and controllability
