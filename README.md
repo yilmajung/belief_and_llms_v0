@@ -11,7 +11,7 @@ The ultimate goal of this research is to completely understand Large Language Mo
 - Study the additivity of demographic traits in model representations
 - Develop steering vectors to controllably modify model outputs
 - Map out a low-dimensional "Demographic Space" via PCA to discover interpretable axes of demographic variation (inspired by [The Assistant Axis](https://arxiv.org/abs/2601.10387))
-- Study demographic drift in multi-turn conversations and use activation capping for bounded demographic control
+<!-- - Study demographic drift in multi-turn conversations and use activation capping for bounded demographic control -->
 
 ## Workflow
 
@@ -90,22 +90,6 @@ The ultimate goal of this research is to completely understand Large Language Mo
              ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │  PLANNED: DEMOGRAPHIC SPACE & DRIFT (inspired by The Assistant Axis)   │
-│                                                                        │
-│  Phase 5: PCA on 34 demographic vectors → "Demographic Space"          │
-│  • Identify dominant axes of demographic variation                     │
-│  • Compare PCA structure with GSS phi-coefficient correlations         │
-│                                                                        │
-│  Phase 6: LLM judge filtering for cleaner vector extraction            │
-│  • Score whether responses genuinely express the target demographic    │
-│  • Re-extract vectors with quality-filtered responses                  │
-│                                                                        │
-│  Phase 7: Demographic drift in multi-turn conversations                │
-│  • Track demographic axis projections turn-by-turn                     │
-│  • Study drift on politically charged topics                           │
-│                                                                        │
-│  Phase 8: Activation capping for bounded demographic control           │
-│  • h ← h − v · min(⟨h, v⟩ − τ, 0)                                    │
-│  • Cap demographic axes to prevent excessive drift                     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -152,7 +136,7 @@ belief_and_llms_v0/
 - **Demographic Space:** Does PCA on 34 demographic vectors reveal a dominant axis (e.g., liberal-conservative)? How does the PCA structure compare with GSS phi-coefficient correlations?
 - **LLM Judge Filtering:** Do quality-filtered responses produce cleaner, more potent steering vectors?
 - **Demographic Drift:** Do models drift toward particular demographic profiles during politically charged multi-turn conversations?
-- **Activation Capping:** Can bounded steering via activation capping provide more stable demographic control than additive injection?
+<!-- - **Activation Capping:** Can bounded steering via activation capping provide more stable demographic control than additive injection? -->
 
 ## Delta Magnitude Analysis
 
