@@ -82,19 +82,31 @@ The project follows a numbered notebook sequence where each phase builds on prev
    - Multi-layer comparison (layers 5, 9, 13, 17, 20)
    - Outputs: `gss_attitude_vectors_layer{N}.pt`, `gss_attitude_extraction_datasets.json`
 
+10. **Phase 6.1 - Attitude Steerability** (`6_1_attitude_steerability.ipynb`)
+    - Runs on Google Colab with GPU
+    - Extends Phase 3.1's 4-variable steering experiment to all 34 attitude variables from Phase 6
+    - Steering vector: `PartyID_Strong Republican - PartyID_Strong Democrat` (contrastive), layer 13, strengths -5 to +5 (step 0.5)
+    - Binary choice via softmax over " A" / " B" tokens for each attitude question
+    - GSS real-world comparison: computes P(Option A | party) from `GSS.xlsx` string-valued labels across 5 party categories
+    - Binary collapse for multi-option variables: 3-option → drop middle, scale → collapse extreme ends, 4-option → collapse to 2 groups
+    - Steerability metrics: `mean_error` (avg |LLM_optimal - GSS_target| across 5 parties), `llm_range`, `gss_spread`, `all_reachable`
+    - Correlation analysis: steerability vs attitude vector magnitude, PC1 loading, and GSS partisan spread
+    - Heatmap of optimal steering strength per variable × party
+    - Outputs: `data/attitude_steerability_results.pt`
+
 #### Planned Phases (inspired by "The Assistant Axis")
 
-10. **Phase 7 - LLM Judge Filtering** (planned)
+11. **Phase 7 - LLM Judge Filtering** (planned)
     - Use an LLM judge to score whether responses genuinely express the target demographic
     - Filter out weak activations before computing `mean(X+) - mean(X-)` for cleaner vectors
     - Re-extract demographic vectors with quality-filtered responses
 
-11. **Phase 8 - Demographic Drift in Multi-Turn Conversations** (planned)
+12. **Phase 8 - Demographic Drift in Multi-Turn Conversations** (planned)
     - Track model's projection along demographic axes turn-by-turn in politically charged conversations
     - Study whether the model drifts toward particular demographic profiles on charged topics
     - Use activation capping to constrain demographic drift within a bounded range
 
-12. **Phase 9 - Activation Capping for Demographic Control** (planned)
+13. **Phase 9 - Activation Capping for Demographic Control** (planned)
     - Implement activation capping: `h ← h − v · min(⟨h, v⟩ − τ, 0)`
     - Cap activations along demographic axes to prevent the model from drifting too far
     - Compare with additive steering (±2-3 strength) for stability and controllability
