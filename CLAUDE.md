@@ -94,19 +94,26 @@ The project follows a numbered notebook sequence where each phase builds on prev
     - Heatmap of optimal steering strength per variable × party
     - Outputs: `data/attitude_steerability_results.pt`
 
+11. **Phase 6.2 - Attitude Steerability (PolViews)** (`6_2_attitude_steerability_polviews.ipynb`)
+    - Runs on Google Colab with GPU
+    - Same experiment as Phase 6.1 but with `PolViews_Extremely Conservative - PolViews_Extremely Liberal` contrastive vector
+    - GSS comparison across 7 political view categories (Extremely Liberal to Extremely Conservative)
+    - Head-to-head comparison with Phase 6.1 PartyID results: scatter plot, paired bar chart, per-variable winner
+    - Outputs: `data/attitude_steerability_polviews_results.pt`
+
 #### Planned Phases (inspired by "The Assistant Axis")
 
-11. **Phase 7 - LLM Judge Filtering** (planned)
+12. **Phase 7 - LLM Judge Filtering** (planned)
     - Use an LLM judge to score whether responses genuinely express the target demographic
     - Filter out weak activations before computing `mean(X+) - mean(X-)` for cleaner vectors
     - Re-extract demographic vectors with quality-filtered responses
 
-12. **Phase 8 - Demographic Drift in Multi-Turn Conversations** (planned)
+13. **Phase 8 - Demographic Drift in Multi-Turn Conversations** (planned)
     - Track model's projection along demographic axes turn-by-turn in politically charged conversations
     - Study whether the model drifts toward particular demographic profiles on charged topics
     - Use activation capping to constrain demographic drift within a bounded range
 
-13. **Phase 9 - Activation Capping for Demographic Control** (planned)
+14. **Phase 9 - Activation Capping for Demographic Control** (planned)
     - Implement activation capping: `h ← h − v · min(⟨h, v⟩ − τ, 0)`
     - Cap activations along demographic axes to prevent the model from drifting too far
     - Compare with additive steering (±2-3 strength) for stability and controllability
